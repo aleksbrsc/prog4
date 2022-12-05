@@ -1,7 +1,6 @@
 import json
 from pprint import pprint
 
-# class related stuff is doing nothing in the program...
 class Book:
     def __init__(self, _name, _author, _yearPublished):
         self._name = _name
@@ -63,16 +62,15 @@ def create():
                 showMainMenu()
         if contains_letters(bookName):
             break
-        else:
-            print("\nInvalid book name.\n")
+        else: print("\nInvalid book name.\n")
+            
     while True:
         try:
             bookAuthor = input("\u001b[90mEnter the author's name: \u001b[0m").lower().strip()
         except: pass
         if contains_letters(bookAuthor) and (contains_numbers(bookAuthor) == False):
             break
-        else:
-            print("\nInvalid author name.\n")
+        else: print("\nInvalid author name.\n")
     while True:
         bookYear = 2023
         try:
@@ -80,8 +78,7 @@ def create():
         except: pass
         if bookYear < 2023:
             break
-        else:
-            print("\nInvalid year of publication\n")
+        else: print("\nInvalid year of publication\n")
     # appends to resources.json
     with open ("resources.json") as json_file:
         data = json.load(json_file)
@@ -98,6 +95,7 @@ def delete():
     new_data = []
     with open ("resources.json", "r") as json_file:
         data = json.load(json_file)
+        temp = data['books']
         try:
             bookName = input("\u001b[90mEnter the book's name: \u001b[0m").strip()
         except: pass
@@ -105,10 +103,11 @@ def delete():
             # figure out how to DELETE
             print("\nWe have found the book following book:\n")
             search(data, bookName) #pprints the book info
-            for book in data['books']:
+            for book in temp:
                 if book['name'] == bookName:
                     print("Deletion successful")
-                    new_data.append(book)
+                    del book
+                    #new_data.append(book)
                     with open ("resources.json", "w") as f:
                         json.dump(new_data, f, indent=4)
                     
@@ -178,8 +177,7 @@ def showMainMenu():
         elif crud == "exit" or crud == "e":
             print("\nVery well.\n")
             quit()
-        else:
-            print("\nThat was not a valid option. Please try again\n(Create / List / Search / Update / Delete / Exit)\n")
+        else: print("\nThat was not a valid option. Please try again\n(Create / List / Search / Update / Delete / Exit)\n")
 
 # starts program and asks user if they want to continue
 def run(): 
