@@ -42,6 +42,18 @@ def write_json(data, filename="resources.json"):
 def check_identical_value(data, value):
     return any(book['name'] == value for book in data)
 
+def view():
+    with open ("resources.json", "r") as f:
+        temp = json.load(f)
+        i = 0
+        for book in temp:
+            name = book["name"]
+            author = book["author"]
+            yearPublished = book["yearPublished"]
+            print(f"Book number: {i}")
+            print(f"Name: {name}\nAuthor: {author}\nYear published: {yearPublished}")
+            i += 1
+
 # searches for a book in the json file given its name and then prettyprints it
 def search(data, name):
     for book in data:
@@ -103,12 +115,10 @@ def delete():
             for value, book in enumerate(data):
                 if book['name'] == bookName:
                     print("Deletion successful")
-                    print(data[value])
                     data.pop(value)
                     #new_data.append(book)
                     with open ("resources.json", "w") as f:
                         json.dump(data, f, indent=4)
-    
                     
         else:
             print("\n\u001b[31mSuch a book does not exist in the Bing Chilling Library\n\u001b[90m(double-check spelling, capitalization or other errors)\u001b[0m")
@@ -125,9 +135,7 @@ def showMainMenu():
         # List
         elif crud == "List" or crud == "l":
             print("\nHere is a list of all books in the Bing Chilling Library:\n")
-            with open ("resources.json", "r") as json_file:
-                data = json.load(json_file)
-                pprint(data)
+            view()
 
         # Search
         elif crud == "search" or crud == "s" or crud == "serach":
