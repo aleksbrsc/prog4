@@ -40,11 +40,11 @@ def write_json(data, filename="resources.json"):
 
 # checks if a book with the same name (value) already exists inside of the json file
 def check_identical_value(data, value):
-    return any(book['name'] == value for book in data['books'])
+    return any(book['name'] == value for book in data)
 
 # searches for a book in the json file given its name and then prettyprints it
 def search(data, name):
-    for book in data['books']:
+    for book in data:
         if book['name'] == name:
             pprint(book)
 
@@ -82,12 +82,10 @@ def create():
     # appends to resources.json
     with open ("resources.json") as json_file:
         data = json.load(json_file)
-        temp = data["books"]
         createdBook = {"name": bookName, "author": bookAuthor, "yearPublished": bookYear}
-        temp.append(createdBook)
+        data.append(createdBook)
     write_json(data)
-    print("\n\u001b[32mYour book has been successfully added.\u001b[0m\n")
-    print("Please select an option.\n(Create / List / Search / Update / Delete / Exit)\n")
+    print("\n\u001b[32mYour book has been successfully added.\u001b[0m")
 
 ### NOT DONE ###
 # prompts user to enter a book to be deleted from the json file
@@ -95,7 +93,6 @@ def delete():
     new_data = []
     with open ("resources.json", "r") as json_file:
         data = json.load(json_file)
-        temp = data['books']
         try:
             bookName = input("\u001b[90mEnter the book's name: \u001b[0m").strip()
         except: pass
@@ -103,18 +100,19 @@ def delete():
             # figure out how to DELETE
             print("\nWe have found the book following book:\n")
             search(data, bookName) #pprints the book info
-            for book in temp:
+            for value, book in enumerate(data):
                 if book['name'] == bookName:
                     print("Deletion successful")
-                    del book
+                    print(data[value])
+                    data.pop(value)
                     #new_data.append(book)
                     with open ("resources.json", "w") as f:
-                        json.dump(new_data, f, indent=4)
+                        json.dump(data, f, indent=4)
+    
                     
         else:
             print("\n\u001b[31mSuch a book does not exist in the Bing Chilling Library\n\u001b[90m(double-check spelling, capitalization or other errors)\u001b[0m")
             showMainMenu()
-        print("\nPlease select an option.\n(Create / List / Search / Update / Delete / Exit)\n")
 
 # shows user the main menu options
 def showMainMenu():
