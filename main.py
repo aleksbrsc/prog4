@@ -118,22 +118,19 @@ def delete():
 
 # shows user the main menu options
 def showMainMenu():
-    print("\nPlease select an option.\n(Create / List / Search / Update / Delete / Exit)\n")
     while True:
-        crud = input("\u001b[90m> \u001b[0m").lower()
+        crud = input("\nPlease select an option.\n(Create / List / Search / Update / Delete / Exit)\n\n\u001b[90m> \u001b[0m").lower()
         # CREATE
         if crud == "create" or crud == "c":
             print("\nVery well.\n")
             create()
-
         # List
         elif crud == "List" or crud == "l":
             print("\nHere is a list of all books in the Bing Chilling Library:\n")
             with open ("resources.json", "r") as json_file:
                 data = json.load(json_file)
                 pprint(data)
-            print("\nPlease select an option.\n(Create / List / Search / Update / Delete / Exit)\n")
-        
+
         # Search
         elif crud == "search" or crud == "s" or crud == "serach":
             print("\nVery well.\n")
