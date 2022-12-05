@@ -26,6 +26,14 @@ class Book:
     def setYearPublished(self, x):
         self._yearPublished = x
 
+# checks if a string contains alphabet characters
+def contains_letters(string):
+    return any(x.isalpha() for x in string)
+
+# checks if a string contains numeric characters
+def contains_numbers(string):
+    return any(x.isdigit() for x in string)
+
 # function for writing to the file resources.json
 def write_json(data, filename="resources.json"):
     with open (filename, "w") as f:
@@ -40,14 +48,6 @@ def search(data, name):
     for book in data['books']:
         if book['name'] == name:
             pprint(book)
-
-# checks if a string contains alphabet characters
-def contains_letters(string):
-    return any(x.isalpha() for x in string)
-
-# checks if a string contains numeric characters
-def contains_numbers(string):
-    return any(x.isdigit() for x in string)
 
 # prompts user to add a book to the json file
 def create():
@@ -95,15 +95,23 @@ def create():
 ### NOT DONE ###
 # prompts user to enter a book to be deleted from the json file
 def delete():
+    new_data = []
     with open ("resources.json", "r") as json_file:
         data = json.load(json_file)
-        temp = data["books"]
         try:
             bookName = input("\u001b[90mEnter the book's name: \u001b[0m").strip()
         except: pass
         if check_identical_value(data, bookName) == True:
             # figure out how to DELETE
-            print("\nthat book exists\n")
+            print("\nWe have found the book following book:\n")
+            search(data, bookName) #pprints the book info
+            for book in data['books']:
+                if book['name'] == bookName:
+                    print("Deletion successful")
+                    new_data.append(book)
+                    with open ("resources.json", "w") as f:
+                        json.dump(new_data, f, indent=4)
+                    
         else:
             print("\n\u001b[31mSuch a book does not exist in the Bing Chilling Library\n\u001b[90m(double-check spelling, capitalization or other errors)\u001b[0m")
             showMainMenu()
@@ -174,7 +182,7 @@ def showMainMenu():
             print("\nThat was not a valid option. Please try again\n(Create / List / Search / Update / Delete / Exit)\n")
 
 # starts program and asks user if they want to continue
-def run():
+def run(): 
     print("\n\u001b[90m~\u001b[0m MAIN MENU\n\nYou have arrived at Bing Chilling Library. Would you like to enter?\n(yes / no)\n")
     while True:
         cont = input("\u001b[90m> \u001b[0m").lower()
