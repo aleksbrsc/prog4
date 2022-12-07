@@ -99,7 +99,7 @@ def update():
         data = json.load(json_file)
     bookName = input("\u001b[90mEnter the book's name: \u001b[0m").strip()
     if check_identical_value(data, bookName) == True:
-        print("\nWe have found the book following book:")
+        print("\n\u001b[32mWe found the following book:\u001b[0m")
         search(data, bookName) #prints the book info
         while True:
             try:
