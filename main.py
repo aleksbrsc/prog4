@@ -50,7 +50,7 @@ def view():
             name = book["name"]
             author = book["author"]
             yearPublished = book["yearPublished"]
-            print(f"Book number: {i}")
+            print(f"~ Book #{i}:")
             print(f"Name: {name}\nAuthor: {author}\nYear published: {yearPublished}\n")
             i += 1
 
@@ -114,7 +114,7 @@ def update():
                         showMainMenu()
                     if contains_letters(bookNewName):
                         break
-                    else: print("\nInvalid book name.\n")
+                    else: print("\n\u001b[31mInvalid book name. Please try again\u001b[0m")
                 for i, book in enumerate(data):
                     if book['name'] == bookName:
                         data[i]['name'] = bookNewName
@@ -128,7 +128,7 @@ def update():
                     bookAuthor = input("\n\u001b[90mEnter the new author name: \u001b[0m").lower().strip()
                     if contains_letters(bookAuthor) and (contains_numbers(bookAuthor) == False):
                         break
-                    else: print("\nInvalid author name.\n")
+                    else: print("\n\u001b[31mInvalid author name. Please try again\u001b[0m")
                 for i, book in enumerate(data):
                     if book['name'] == bookName:
                         data[i]['author'] = bookAuthor
@@ -146,7 +146,7 @@ def update():
                     except: pass
                     if bookYear < 2023:
                         break
-                    else: print("\nInvalid year of publication\n")
+                    else: print("\n\u001b[31mInvalid year of publication. Please try again\u001b[0m")
                 for i, book in enumerate(data):
                     if book['name'] == bookName:
                         data[i]["yearPublished"] = bookYear
@@ -184,7 +184,7 @@ def delete():
 # shows user the main menu options
 def showMainMenu():
     while True:
-        crud = input("\nPlease select an option.\n(Create / List / Search / Update / Delete / Exit)\n\n\u001b[90m> \u001b[0m").lower()
+        crud = input("\nPlease select a valid option.\n(Create / List / Search / Update / Delete / Exit)\n\n\u001b[90m> \u001b[0m").lower()
         # CreateE
         if crud == "create" or crud == "c":
             print("\nVery well.\n")
@@ -203,7 +203,7 @@ def showMainMenu():
                 except: pass
                 if check_identical_value(data, bookName) == True:
                     # figure out search
-                    print("\n\u001b[32mWe found the following book:\u001b[0m\n")
+                    print("\n\u001b[32mWe found the following book:\u001b[0m")
                     search(data, bookName)
                 else:
                     print("\n\u001b[31mSuch a book does not exist in the Bing Chilling Library\n\u001b[90m(double-check spelling, capitalization or other errors)\u001b[0m")
@@ -232,7 +232,8 @@ def run():
             print("\nHave a nice day.\n")
             quit()
         else:
-            print("\n\u001b[31mThat was not a valid option. Please try again\n")
+            print("\n\u001b[31mThat was not a valid option. Please try again\u001b[0m")
+            print("\nWould you like to enter the library?\n(yes / no)\n")
     showMainMenu()
 
 run()
