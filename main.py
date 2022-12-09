@@ -1,30 +1,6 @@
 import json
 from pprint import pprint
 
-class Book:
-    def __init__(self, _name, _author, _yearPublished):
-        self._name = _name
-        self._author = _author
-        self._yearPublished = _yearPublished
-
-    def getName(self):
-        return self._name
-
-    def setName(self, x):
-        self._name = x
-    
-    def getAuthor(self):
-        return self._author
-    
-    def setAuthor(self, x):
-        self._author = x
-    
-    def getYearPublished(self):
-        return self._yearPublished
-    
-    def setYearPublished(self, x):
-        self._yearPublished = x
-
 # checks if a string contains alphabet characters
 def contains_letters(string):
     return any(x.isalpha() for x in string)
@@ -42,6 +18,7 @@ def write_json(data, filename="resources.json"):
 def check_identical_value(data, value):
     return any(book['name'] == value for book in data)
 
+# used for listing all the books and their details from the json but in formatted way
 def view():
     with open ("resources.json", "r") as f:
         temp = json.load(f)
@@ -185,7 +162,7 @@ def delete():
 def showMainMenu():
     while True:
         crud = input("\nPlease select an option.\n(Create / List / Search / Update / Delete / Exit)\n\n\u001b[90m> \u001b[0m").lower()
-        # CreateE
+        # Create
         if crud == "create" or crud == "c":
             print("\nVery well.\n")
             create()
