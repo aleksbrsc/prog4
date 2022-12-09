@@ -1,0 +1,5 @@
+The program I created is a library application that allows the end user to use collections to store and manage complex data,
+books in this instance, and utilizes file persistence to save and load data between application runtime sessions.
+It is based on a CRUD application system as it allows users to do the basic applications of crud.
+More specifically, my application allows users to select an option from Create / List / Search / Update / Delete / Exit
+in order to manage the books in the "resources.json" file 
