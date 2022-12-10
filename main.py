@@ -44,7 +44,7 @@ def create():
         bookName = input("\u001b[90mEnter the book's name: \u001b[0m").strip()
         with open ("resources.json", "r") as json_file:
             data = json.load(json_file)
-            if check_identical_value(data, bookName):
+            if check_existing_name(data, bookName):
                 print("\n\u001b[31mThis book name already exists in the Bing Chilling Library.\u001b[0m")
                 showMainMenu()
         if contains_letters(bookName):
@@ -75,7 +75,7 @@ def update():
     with open ("resources.json", "r") as json_file:
         data = json.load(json_file)
     bookName = input("\u001b[90mEnter the book's name: \u001b[0m").strip()
-    if check_identical_value(data, bookName) == True:
+    if check_existing_name(data, bookName) == True:
         print("\n\u001b[32mWe found the following book:\u001b[0m")
         search(data, bookName) #prints the book info
         while True:
@@ -86,7 +86,7 @@ def update():
             if updateKind == "name" or updateKind == "n":
                 while True:
                     bookNewName = input("\n\u001b[90mEnter the new book name: \u001b[0m").strip()
-                    if check_identical_value(data, bookNewName) == True:
+                    if check_existing_name(data, bookNewName) == True:
                         print("\n\u001b[31mThis book name already exists in the Bing Chilling Library.\u001b[0m")
                         showMainMenu()
                     if contains_letters(bookNewName):
@@ -145,7 +145,7 @@ def delete():
         try:
             bookName = input("\u001b[90mEnter the book's name: \u001b[0m").strip()
         except: pass
-        if check_identical_value(data, bookName) == True:
+        if check_existing_name(data, bookName) == True:
             print("\nWe have found the book following book:")
             search(data, bookName) #prints the book info
             for i, book in enumerate(data):
@@ -178,7 +178,7 @@ def showMainMenu():
                 try:
                     bookName = input("\u001b[90mEnter the book's name: \u001b[0m").strip()
                 except: pass
-                if check_identical_value(data, bookName) == True:
+                if check_existing_name(data, bookName) == True:
                     # figure out search
                     print("\n\u001b[32mWe found the following book:\u001b[0m")
                     search(data, bookName)
