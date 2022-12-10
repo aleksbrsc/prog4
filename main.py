@@ -14,9 +14,9 @@ def write_json(data, filename="resources.json"):
     with open (filename, "w") as f:
         json.dump(data, f, indent=4)
 
-# checks if a book with the same name (value) already exists inside of the json file
-def check_identical_value(data, value):
-    return any(book['name'] == value for book in data)
+# checks if a book with the same name already exists inside of the json file and returns true if it does
+def check_existing_name(data, name):
+    return any(book['name'] == name for book in data)
 
 # used for listing all the books and their details from the json but in formatted way
 def view():
@@ -162,7 +162,7 @@ def delete():
 def showMainMenu():
     while True:
         crud = input("\nPlease select an option.\n(Create / List / Search / Update / Delete / Exit)\n\n\u001b[90m> \u001b[0m").lower()
-        # CreateE
+        # Create
         if crud == "create" or crud == "c":
             print("\nVery well.\n")
             create()
